@@ -1,9 +1,9 @@
 package top.trumandu;
 
 /**
- * @author: Truman.P.Du
- * @date: 2021/3/24 21:38
- * @description:
+ * @author Truman.P.Du
+ * @date 2021/3/24 21:38
+ * @description
  */
 public class KeyValue implements Comparable<KeyValue> {
     @Override
