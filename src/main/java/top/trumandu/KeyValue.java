@@ -94,5 +94,9 @@ public class KeyValue implements Comparable<KeyValue> {
         return this.sequenceId;
     }
 
+    public long getByteSize() {
+        return key.length + value.length;
+    }
+
 
 }
