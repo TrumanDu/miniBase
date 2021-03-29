@@ -1,0 +1,2 @@
+JMH S 25 top.trumandu.LRUBenchmark S 65 top.trumandu.jmh_generated.LRUBenchmark_testLocalCacheGet_jmhTest S 17 testLocalCacheGet S 10 Throughput E A 1 1 4 E E E E E E E E E E E E E E U 7 SECONDS E E 
+JMH S 25 top.trumandu.LRUBenchmark S 65 top.trumandu.jmh_generated.LRUBenchmark_testLocalCacheSet_jmhTest S 17 testLocalCacheSet S 10 Throughput E A 1 1 4 E E E E E E E E E E E E E E U 7 SECONDS E E 
