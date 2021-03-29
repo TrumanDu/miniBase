@@ -8,7 +8,7 @@ import java.util.*;
  * @description
  */
 public class LRUCache {
-    private Map<byte[], KeyValue> map;
+    private Map<Key, KeyValue> map;
     private long maxByteSize;
     /**
      * 目前已存数据大小
@@ -31,8 +31,9 @@ public class LRUCache {
 
 
     public synchronized void add(KeyValue keyValue) {
+        Key key = new Key(keyValue.getKey());
         if (totalByteSize <= DEFAULT_BYTE_SIZE) {
-            KeyValue oldValue = map.put(keyValue.getKey(), keyValue);
+            KeyValue oldValue = map.put(key, keyValue);
             long size = keyValue.getByteSize();
             if (oldValue != null) {
                 size = size - oldValue.getByteSize();
@@ -41,16 +42,17 @@ public class LRUCache {
         } else {
             Object[] entries = map.values().toArray();
             KeyValue earlyKeyValue = (KeyValue) entries[0];
-            map.remove(earlyKeyValue.getKey());
+            map.remove(new Key(earlyKeyValue.getKey()));
             totalByteSize = totalByteSize - earlyKeyValue.getByteSize();
             add(keyValue);
         }
 
-        map.put(keyValue.getKey(), keyValue);
+        map.put(key, keyValue);
     }
 
     public KeyValue getOrNull(byte[] key) {
-        return map.getOrDefault(key, null);
+
+        return map.getOrDefault(new Key(key), null);
     }
 
     public long size() {

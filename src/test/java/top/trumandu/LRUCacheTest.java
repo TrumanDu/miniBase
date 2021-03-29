@@ -1,5 +1,6 @@
 package top.trumandu;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -21,30 +22,25 @@ public class LRUCacheTest {
         for (int i = 0; i < 1000000; i++) {
             KeyValue keyValue = KeyValue.create(Bytes.toBytes(i), Bytes.toBytes(value), KeyValue.Op.Put, i);
             lruCache.add(keyValue);
-            System.out.println(lruCache.getOrNull(Bytes.toBytes(i)));
-
             byteSize = byteSize + keyValue.getByteSize();
         }
 
         System.out.println(byteSize);
-
-        System.out.println(lruCache.getOrNull(Bytes.toBytes(1)));
-
-        System.out.println(lruCache.getOrNull(Bytes.toBytes(999195)).getValue());
-
-
+        Assert.assertNull(lruCache.getOrNull(Bytes.toBytes(1)));
+        System.out.println(new String(lruCache.getOrNull(Bytes.toBytes(999195)).getValue()));
         System.out.println(lruCache.size());
-        System.out.println(lruCache.getTotalByteSizeSize());
+        Assert.assertEquals(1024 * 1024, lruCache.getTotalByteSizeSize());
     }
 
     @Test
-    public void testMap() {
+    public void testMap() throws IOException {
         byte[] key = Bytes.toBytes(999194);
+        KeyValue keyValue = KeyValue.create(key, Bytes.toBytes("value"), KeyValue.Op.Put, 100);
+        Map<byte[], KeyValue> m = new LinkedHashMap<>();
 
-        Map<byte[], byte[]> m = new LinkedHashMap<>();
-
-        m.put(key, key);
+        m.put(key, keyValue);
 
         System.out.println(m.getOrDefault(key, null));
+        System.out.println(m.getOrDefault(Bytes.toBytes(999194), null));
     }
 }
